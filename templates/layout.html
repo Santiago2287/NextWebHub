@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %} | NextWeb hub{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{url_for('index')}}">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav nav-pills">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('index')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('about')}}">About the project</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('log_in')}}">Log in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('sign_up')}}">Sign in</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% block contenido %}{% endblock %}
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+    </ul>
+    <p class="text-center text-muted">© {{ now.year }} Company, Inc</p>
+  </footer>
+<script src="{{ url_for('static', filename='/js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
