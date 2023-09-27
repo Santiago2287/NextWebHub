@@ -5,7 +5,7 @@ from config import config
 from werkzeug.security import generate_password_hash
 from models.ModelUser import ModelUser
 from models.entities.User import User
-from flask_login import LoginManager, login_user, logout_user
+from flask_login import LoginManager, login_required, login_user, logout_user
 
 
 app = Flask(__name__)
@@ -54,11 +54,23 @@ def sign_up():
         return render_template('sign-up.html')
     return render_template('sign-up.html')
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()  # Cierra la sesión del usuario actual
+    return redirect(url_for('login'))  # Redirige a la vista de inicio de sesión
+
+
 
 @app.route('/log_in', methods=['GET','POST'])
 def log_in():
     if request.method=='POST':
         usuario = User(0, None, request.form['emailu'], request.form['passwordu'], None)
+        
+          # Imprime el valor de usuario.emailu en la consola
+        print("Valor de usuario.emailu:", usuario.emailu)
+
+        
         usuarioAut = ModelUser.login(db, usuario)
         if usuarioAut is not None:             
             if usuarioAut.passwordu:
