@@ -11,15 +11,16 @@ from flask_login import LoginManager, login_required, login_user, logout_user
 app = Flask(__name__)
 
 db = MySQL(app)
+
 login_Manager_app= LoginManager(app)
 login_Manager_app.init_app(app)
 
 @login_Manager_app.user_loader
-def load_user(user_id):
+def load_user(id):
     # Aquí debes cargar y devolver un objeto de usuario basado en user_id.
     # Asegúrate de devolver None si el usuario no existe.
     # Ejemplo:
-    return User.query.get(int(user_id))
+    return ModelUser.getById(db, id)
 
 # Context processor
 @app.context_processor
@@ -62,37 +63,32 @@ def logout():
 
 
 
-@app.route('/log_in', methods=['GET','POST'])
-def log_in():
-    if request.method=='POST':
-        usuario = User(0, None, request.form['emailu'], request.form['passwordu'], None)
-        
-          # Imprime el valor de usuario.emailu en la consola
-        print("Valor de usuario.emailu:", usuario.emailu)
-
-        
-        usuarioAut = ModelUser.login(db, usuario)
-        if usuarioAut is not None:             
-            if usuarioAut.passwordu:
-                login_user(usuarioAut)
-                if usuarioAut.perfilu == 'C':
-                    return render_template('about.html')
-                else: 
-                    return render_template('admin.html')
-            else:
-                flash('Usuario o contraseña incorrecta')
-                return redirect(request.url)
-            
-        else:
-            flash('El usuario no existe')
-            return redirect(request.url)
-    else:
-        return render_template('log-in.html')
 
 @app.route('/password')
 def password():
     return render_template('Password.html')
 
+@app.route('/log_in', methods=['GET', 'POST'])
+def log_in():
+    if request.method == 'POST':
+        usuario = User(0, None, request.form['emailu'], request.form['passwordu'], None)
+
+        usuarioAut = ModelUser.login(db, usuario)
+        if usuarioAut is not None:
+            if usuarioAut.passwordu:
+                login_user(usuarioAut)
+                if usuarioAut.perfilu == 'C':
+                    return render_template('about.html')
+                else:
+                    return render_template('admin.html')
+            else:
+                flash('Usuario o contraseña incorrecta')
+                return redirect(request.url)
+        else:
+            flash('El usuario no existe')
+            return redirect(request.url)
+    else:
+        return render_template('log-in.html')
 
 
 app.route('/informacion')

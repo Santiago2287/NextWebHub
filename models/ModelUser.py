@@ -19,7 +19,7 @@ class ModelUser:
     def getById(cls, db, id):
         try:
             selUsuario = db.connection.cursor()
-            selUsuario.execute("SELECT * FROM usuario WHERE id = %s", (id))
+            selUsuario.execute("SELECT * FROM usuario WHERE id = %s", (id,))
             u = selUsuario.fetchone()
             if u is not None:
                 return User(u[0], u[1], u[2], u[3], u[4])
