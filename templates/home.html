@@ -4,6 +4,29 @@ NextWeb hub
 {% endblock %}
 
 {% block contenido %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{{url_for('index')}}">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav nav-pills">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url_for('index')}}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('about')}}">About the project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('log_in')}}">Log in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('sign_up')}}">Sign in</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
   <div id="carouselE%%xampleDark" class="carousel carousel-dark slide">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

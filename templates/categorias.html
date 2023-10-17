@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block titulo %}
+NextWeb hub
+{% endblock %}
+
+{% block contenido%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{url_for('index')}}">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav nav-pills">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('logout')}}">logout</a>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+<h1> Admin</h1>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">email</th>
+        <th scope="col">Perfil</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for u in usuario %}
+      <tr>
+        <th scope="row">{{u[0]}}</th>
+        <td>{{u[1]}}</td>
+        <td>{{u[2]}}</td>
+        <td>{{u[4]}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit{{u[0]}}">
+            <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+      </td>
+      </tr>
+      
+
+<!-- Modal UPDATE -->
+<div class="modal fade" id="edit{{u[0]}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+
+        <button type="button" class="btn-close" data-bs-dismiss="#edit{{u[0]}}" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/sign_up" method="POST" class="form">
+          <div>
+            {% with mensajes = get_flashed_messages() %}
+              {% if mensajes %}
+                {% for m in mensajes%}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{m}}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+              
+            <label for="name" class="label">Name</label>
+            <input type="text" name="nameu" value='{{u[1]}}' id="name" placeholder="Teff" class="input input-name">
+  
+            <label for="email" class="label">Email</label>
+            <input type="text" name="emailu" value='{{u[2]}}' id="email" placeholder="platzi@example.com" class="input input-email">
+  
+            <label for="password" class="label">Password</label>
+            <input type="password" name="passwordu" id="password" placeholder="*********" class="input input-password">
+
+            <label for="password" class="label">Perfil</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected value="{{u[4]}}">{{u[4]}}</option>
+              <option value='A'>Administrador</option>
+              <option value='C'>Cliente</option>
+              
+            </select>
+          </div>
+  
+          <input type="submit" value="Create" class="primary-button login-button">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock%}

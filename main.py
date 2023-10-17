@@ -59,7 +59,7 @@ def sign_up():
 @login_required
 def logout():
     logout_user()  # Cierra la sesión del usuario actual
-    return redirect(url_for('login'))  # Redirige a la vista de inicio de sesión
+    return redirect(url_for('index'))  # Redirige a la vista de inicio de sesión
 
 
 
@@ -78,7 +78,7 @@ def log_in():
             if usuarioAut.passwordu:
                 login_user(usuarioAut)
                 if usuarioAut.perfilu == 'C':
-                    return render_template('about.html')
+                    return render_template('usuario.html')
                 else:
                     return render_template('admin.html')
             else:
@@ -103,6 +103,21 @@ def informacion(nombre = None, apellido= None):
     return f"<h1>Informacion {texto}</h1>"
 
 
+@app.route('/sUsuario', methods=['GET', 'POST'])
+def sUsuario():
+    SelUsuario = db.connection.cursor()
+    SelUsuario.execute("SELECT * FROM usuario")
+    u = SelUsuario .fetchall()
+    return render_template('usuarios.html', usuario = u)
+"""
+@app.route('/sCategoria', methods=['GET', 'POST'])
+def sUsuario():
+    SelCategorias = db.connection.cursor()
+    SelCategorias.execute("SELECT * FROM categoria")
+    u = SelCategorias .fetchall()
+    return render_template('categorias.html', categorias = u)
+    
+"""
 
 if __name__=="__main__":
     app.config.from_object(config['development'])
