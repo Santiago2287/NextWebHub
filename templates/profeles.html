@@ -12,6 +12,10 @@ NextWeb hub
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav nav-pills">
         <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('sProductos')}}">Productos</a>
+        </li>
+        
+        <li class="nav-item active">
           <a class="nav-link" href="{{url_for('logout')}}">logout</a>
         </li>
         
@@ -40,23 +44,20 @@ NextWeb hub
         <th scope="col">Correo</th>
         <th scope="col">Perfil</th>
         
+        <th> &nbsp; </th>
+        <th> &nbsp; </th>
+        <th> &nbsp; </th>
+        <th> &nbsp; </th>
+        <th> &nbsp; </th>
         <th>
-        </th>
-        <th> &nbsp; </th>
-        <th> &nbsp; </th>
-        <th> &nbsp; </th>
-        <th> &nbsp; </th>
-        <th>
-                      <!-- Button trigger modal -->
-<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#addUser">
-  <i class="fa-solid fa-circle-plus fa-xl" style="color: #9462a3;"></i>
-</button> 
-        </th>
+          <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
+         <i class="fa-solid fa-circle-plus fa-xl" style="color: #9462a3;"></i>
+       </button> 
+      </th>
       </tr>
     </thead>
     <tbody>
-      {% for u in usu
-        ario %}
+      {% for u in usuarios %}
       <tr>
         <th scope="row">{{ u[0] }}</th>
         <td>{{ u[1] }}</td>
@@ -169,7 +170,7 @@ NextWeb hub
         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="post" action="/dUsuario/{{u[0]}}">
+      <form action="/dUsuario/{{u[0]}}" method="post">
       <div class="modal-body">
         <p>
           <i class="fa-solid fa-exclamation" style="color: #9462a3;"></i>
@@ -187,50 +188,6 @@ NextWeb hub
   </div>
 </div>
       {% endfor %}
-
-
-
-<!-- Modal Add user-->
-<div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-    <form method="post" action="/iUsuario">
-
-      <div class="modal-body">
-        <label for="name" class="label">Name</label>
-          <input type="text" name="nameu" id="nameu" placeholder="Teff" class="input input-name">
-
-          <label for="email" class="label">Email</label>
-          <input type="text" name="emailu" id="emailu" placeholder="platzi@example.com" class="input input-email">
-
-          <label for="password" class="label">Password</label>
-          <input type="password" name="passwordu" id="passwordu" placeholder="*********" class="input input-password">
-
-          <label for="perfilu" class="label">perfil</label>
-          <select name="perfilu" id="perfilu" class="form-control">
-            <option value="A">Administrador</option>
-            <option value="c">Cliente</option>
-          </select>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit">A</button>
-          <button type="submit" class="btn btn-primary">Sav</button>
-        </div>
-      </div>
-      
-      </form>
-      </div>
-   
-    </div>
-   
-  </div>
-
-</div>
     </tbody>
   </table>
 </div>

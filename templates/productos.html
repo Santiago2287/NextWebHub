@@ -14,6 +14,9 @@ NextWeb hub
         <li class="nav-item active">
           <a class="nav-link" href="{{url_for('logout')}}">logout</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('sProductos')}}">sProductos</a>
+        </li>
         
       </ul>
     </div>
@@ -41,37 +44,40 @@ NextWeb hub
         <th scope="col">Perfil</th>
         
         <th>
+                <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProduct">
+  Launch demo modal
+</button>
         </th>
         <th> &nbsp; </th>
         <th> &nbsp; </th>
         <th> &nbsp; </th>
         <th> &nbsp; </th>
         <th>
-                      <!-- Button trigger modal -->
-<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#addUser">
-  <i class="fa-solid fa-circle-plus fa-xl" style="color: #9462a3;"></i>
-</button> 
-        </th>
+          <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
+         <i class="fa-solid fa-circle-plus fa-xl" style="color: #9462a3;"></i>
+       </button> 
+      </th>
       </tr>
     </thead>
     <tbody>
-      {% for u in usu
-        ario %}
+      {% for p in productos %}
       <tr>
-        <th scope="row">{{ u[0] }}</th>
-        <td>{{ u[1] }}</td>
-        <td>{{ u[2] }}</td>
-        <td>{{ u[4] }}</td>
+        <th scope="row">{{ p[0] }}</th>
+        <td>{{ p[1] }}</td>
+        <td>{{ p[2] }}</td>
+        <td>{{ p[4] }}</td>
         <td> 
           &nbsp;
         </td>
         <td> 
-          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#del{{u[0]}}">
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#del{{p[0]}}">
             <i class="fa-solid fa-circle-minus fa-xl" style="color: #9462a3;"></i>
           </button>
         </td>
         <td> 
-          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#edit{{u[0]}}">
+
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#edit{{p[0]}}">
             <i class="fa-solid fa-pen-to-square fa-xl" style="color: #9462a3;"></i> 
           </button>
         </td>
@@ -81,14 +87,14 @@ NextWeb hub
         </tr>
 
       <!-- Modal update -->
-      <div class="modal fade" id="edit{{u[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="edit{{p[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="/uUsuario/{{u[0]}}" class="row g-3">
+            <form method="post" action="/uUsuario/{{p[0]}}" class="row g-3">
               <div class="modal-body">
                 <div class="container text-center">
                   <div class="row">
@@ -97,7 +103,7 @@ NextWeb hub
                       <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-envelope" style="color: #9462a3;"></i></span>
                         <div class="form-floating">
-                          <input type="email" name="emailu" value="{{u[2]}}" class="form-control" id="inputEmail4" placeholder="Username">
+                          <input type="email" name="emailu" value="{{p[2]}}" class="form-control" id="inputEmail4" placeholder="Username">
                           <label for="inputEmail4" > Email</label>
                         </div>
                       </div>
@@ -106,7 +112,7 @@ NextWeb hub
                       <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-at" style="color: #9462a2;"></i></span>
                         <div class="form-floating">
-                          <input type="text" name="nameu" value="{{u[1]}}" class="form-control" id="inputNombre4" placeholder="Username">
+                          <input type="text" name="nameu" value="{{p[1]}}" class="form-control" id="inputNombre4" placeholder="Username">
                           <label for="inputNombre4">Username</label>
                         </div>
                       </div>
@@ -118,7 +124,7 @@ NextWeb hub
                       <div  class="col-md">
                         <div class="form-floating">
                           <select  name="perfilu" class="form-select" id="floatingSelectGrid">
-                            <option selected value="{{u[4]}}">{{u[4]}}</option>
+                            <option selected value="{{p[4]}}">{{p[4]}}</option>
                             <option value="C">Cliente</option>
                             <option value="A">Administrador</option>
         
@@ -162,20 +168,20 @@ NextWeb hub
 
 
 <!-- Modal Delete -->
-<div class="modal fade" id="del{{u[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="del{{p[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="post" action="/dUsuario/{{u[0]}}">
+      <form action="/dUsuario/{{p[0]}}" method="post">
       <div class="modal-body">
         <p>
           <i class="fa-solid fa-exclamation" style="color: #9462a3;"></i>
         </p>
         <p>
-          ¿Estas seguro de que deaseas eliminar al usuario {{u[1]}}?
+          ¿Estas seguro de que deaseas eliminar al usuario {{p[1]}}?
         </p>
       </div>
       <div class="modal-footer">
@@ -198,38 +204,33 @@ NextWeb hub
         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    <form method="post" action="/iUsuario">
+      <form action="iUsuario" method="post">
 
       <div class="modal-body">
         <label for="name" class="label">Name</label>
-          <input type="text" name="nameu" id="nameu" placeholder="Teff" class="input input-name">
+          <input type="text" name="nameu" id="name" placeholder="Teff" class="input input-name">
 
           <label for="email" class="label">Email</label>
-          <input type="text" name="emailu" id="emailu" placeholder="platzi@example.com" class="input input-email">
+          <input type="text" name="emailu" id="email" placeholder="platzi@example.com" class="input input-email">
 
           <label for="password" class="label">Password</label>
-          <input type="password" name="passwordu" id="passwordu" placeholder="*********" class="input input-password">
+          <input type="password" name="passwordu" id="password" placeholder="*********" class="input input-password">
 
-          <label for="perfilu" class="label">perfil</label>
-          <select name="perfilu" id="perfilu" class="form-control">
+          <label for="perfil" class="label">perfil</label>
+          <select name="perfil" id="perfil" class="form-control">
             <option value="A">Administrador</option>
             <option value="c">Cliente</option>
           </select>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit">A</button>
-          <button type="submit" class="btn btn-primary">Sav</button>
+          <input type="password" name="perfilu" id="password"  class="input input-perfil">
         </div>
       </div>
-      
-      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
-   
+    </form>
     </div>
-   
   </div>
-
 </div>
     </tbody>
   </table>

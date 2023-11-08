@@ -6,9 +6,20 @@ from werkzeug.security import generate_password_hash
 from models.ModelUser import ModelUser
 from models.entities.User import User
 from flask_login import LoginManager, login_required, login_user, logout_user
-
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_TLS'] = True
+app.config['MAIL_SSL'] = False
+app.config['MAIL_USERNAME'] = 'santiago.robles1665@alumnos.udg.mx'
+app.config['MAIL_PASSWORD'] = 'htdp jifj vhrz dkqb'
+app.config['MAIL_DEFAULT_SENDER'] = 'santiago.robles1665@alumnos.udg.mx'
+app.config['MAIL_ASCII_ATTACHMENTS'] = True
+# Configuración de la instancia Mail
+mail = Mail(app)
 
 db = MySQL(app)
 
@@ -49,6 +60,16 @@ def sign_up():
     
         regUsuario.execute("INSERT INTO usuario (nameu, emailu, passwordu) VALUES (%s, %s, %s)", (nameu,emailu, passwordCifrada ))
         db.connection.commit()
+                # Crear y enviar el correo electrónico
+        msg = Message('Hola', recipients=[emailu])  # Asunto y destinatario
+        msg.html = render_template('UserMail.html', nombre=nameu)  # Cuerpo del correo basado en una plantilla
+
+        # Enviar el correo electrónico
+        try:
+            mail.send(msg)  # mail es la instancia de Flask-Mail configurada en tu aplicación
+            flash('Se ha creado el usuario correctamente y se ha enviado un correo de confirmación.', 'success')
+        except Exception as e:
+            flash('Error al enviar el correo de confirmación.', 'danger')
         flash('Se a creado el usuario correctamente')
         return redirect(url_for('index'))
     else:
@@ -109,6 +130,59 @@ def sUsuario():
     SelUsuario.execute("SELECT * FROM usuario")
     u = SelUsuario .fetchall()
     return render_template('usuarios.html', usuario = u)
+
+@app.route('/uUsuario/<string:id>', methods=['GET', 'POST'])
+def uUsuario(id):
+    if request.method=='POST':
+        nameu = request.form['nameu']
+        emailu= request.form['emailu']
+        passwordu=request.form['passwordu']
+        claveCifrada=generate_password_hash(passwordu)
+        perfilu=request.form['perfilu']
+        # Imprime los datos para verificar que se están recibiendo correctamente
+        print("Nameu:", nameu)
+        print("Emailu:", emailu)
+        print("Passwordu:", passwordu)
+        print("Perfilu:", perfilu)
+        
+        UpUsuario = db.connection.cursor()
+        UpUsuario.execute("UPDATE usuario SET nameu=%s, emailu=%s, passwordu=%s, perfilu=%s WHERE id=%s",(nameu, emailu,claveCifrada, perfilu, id))
+        db.connection.commit()
+        flash('Usuario Actualizado')
+        return redirect(url_for('sUsuario'))
+    else:
+        return redirect(request.url)
+    
+    
+@app.route('/dUsuario/<string:id>', methods=['POST', 'GET'])
+def dUsuario(id):
+    if request.method == 'POST':
+        try:
+            DelUsuario = db.connection.cursor()
+            DelUsuario.execute("DELETE FROM usuario WHERE id=%s", (id,))
+            db.connection.commit()
+            flash('Usuario Eliminado')
+            return redirect(url_for('sUsuario'))
+        except Exception as e:
+            print("Error al eliminar el usuario:", str(e))
+            flash('Error al eliminar el usuario')
+    return redirect(url_for('sUsuario'))
+
+    
+""" 
+@app.route('/dUsuario/<string:id>', methods=['GET', 'POST'])
+def dUsuario(id):
+    if request.method=='POST':
+        DelUsuario=db.connection.cursor()
+        DelUsuario.execute("DELETE FROM usuario WHERE id=%s", (id,))
+        flash('Usuario Eliminado')
+        return redirect(url_for('sUsuario'))
+    else:
+        return redirect(request.url)
+    
+"""
+
+
 """
 @app.route('/sCategoria', methods=['GET', 'POST'])
 def sUsuario():
@@ -116,8 +190,60 @@ def sUsuario():
     SelCategorias.execute("SELECT * FROM categoria")
     u = SelCategorias .fetchall()
     return render_template('categorias.html', categorias = u)
-    
+   """ 
+
+
 """
+@app.route('/iUsuario', methods=['GET', 'POST'])
+def iUsuario():
+    if request.method =='POST':
+        regUsuario = db.connection.cursor()
+        nameu= request.form['nameu']
+        emailu= request.form['emailu']
+        passwordu= request.form['passwordu']
+        passwordCifrada=generate_password_hash(passwordu)
+        perfilu=request.form['perfilu']
+        #Consulta sql
+    
+        regUsuario.execute("INSERT INTO usuario (nameu, emailu, passwordu, perfilu) VALUES (%s, %s, %s, %s)", (nameu,emailu, passwordCifrada, perfilu ))
+        db.connection.commit()
+        flash('Se a creado el usuario correctamente')
+        return redirect(url_for('sUsuario'))
+    else:
+        flash('No se pudo crear el Usuario')
+        return redirect(url_for(request.url))
+"""   
+   
+@app.route('/iUsuario', methods=['GET', 'POST'])
+def iUsuario():
+    if request.method == 'POST':
+        regUsuario = db.connection.cursor()
+        nameu = request.form['nameu']
+        emailu = request.form['emailu']
+        passwordu = request.form['passwordu']
+        passwordCifrada = generate_password_hash(passwordu)
+        perfilu = request.form['perfilu']
+
+        try:
+            # Consulta sql
+            regUsuario.execute("INSERT INTO usuario (nameu, emailu, passwordu, perfilu) VALUES (%s, %s, %s, %s)", (nameu, emailu, passwordCifrada, perfilu))
+            db.connection.commit()
+            flash('Se ha creado el usuario correctamente')
+            return redirect(url_for('sUsuario'))
+        except Exception as e:
+            flash('No se pudo crear el Usuario: ' + str(e))
+
+    return render_template('sign-up.html')
+
+
+
+@app.route('/sProductos', methods=['GET', 'POST'])
+def sProductos():
+    SelUsuario = db.connection.cursor()
+    SelUsuario.execute("SELECT * FROM preferenciasu")
+    p = SelUsuario .fetchall()
+    return render_template('productos.html',  productos = p)
+
 
 if __name__=="__main__":
     app.config.from_object(config['development'])
