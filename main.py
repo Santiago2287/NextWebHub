@@ -6,22 +6,16 @@ from werkzeug.security import generate_password_hash
 from models.ModelUser import ModelUser
 from models.entities.User import User
 from flask_login import LoginManager, login_required, login_user, logout_user
+from config import Config
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_TLS'] = True
-app.config['MAIL_SSL'] = False
-app.config['MAIL_USERNAME'] = 'santiago.robles1665@alumnos.udg.mx'
-app.config['MAIL_PASSWORD'] = 'htdp jifj vhrz dkqb'
-app.config['MAIL_DEFAULT_SENDER'] = 'santiago.robles1665@alumnos.udg.mx'
-app.config['MAIL_ASCII_ATTACHMENTS'] = True
-# Configuración de la instancia Mail
-mail = Mail(app)
-
+#conexion a sql
 db = MySQL(app)
+# Configuración de la instancia Mail
+
+mail = Mail(app)
 
 login_Manager_app= LoginManager(app)
 login_Manager_app.init_app(app)
@@ -69,9 +63,10 @@ def sign_up():
             mail.send(msg)  # mail es la instancia de Flask-Mail configurada en tu aplicación
             flash('Se ha creado el usuario correctamente y se ha enviado un correo de confirmación.', 'success')
         except Exception as e:
-            flash('Error al enviar el correo de confirmación.', 'danger')
-        flash('Se a creado el usuario correctamente')
-        return redirect(url_for('index'))
+            flash(f'Error al enviar el correo de confirmación: {str(e)}', 'danger')
+
+            #flash('Se a creado el usuario correctamente')
+            #return redirect(url_for('index'))
     else:
         return render_template('sign-up.html')
     return render_template('sign-up.html')
@@ -247,6 +242,7 @@ def sProductos():
 
 if __name__=="__main__":
     app.config.from_object(config['development'])
+    mail = Mail(app)
     app.run(debug = True)
     
 
