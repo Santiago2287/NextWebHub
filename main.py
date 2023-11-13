@@ -1,4 +1,4 @@
-from flask  import Flask, redirect, render_template, request, url_for, template_rendered, flash
+from flask  import Flask, make_response, redirect, render_template, request, url_for, template_rendered, flash
 from datetime import datetime
 from flask_mysqldb import MySQL
 from config import config
@@ -36,7 +36,22 @@ def date_now():
 # Endpoints
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('index.html')
+
+@app.route('/setcookie', methods = ['POST', 'GET'])
+def setcookie():
+   if request.method == 'POST':
+        user = request.form['nm']
+   
+        resp = make_response(render_template('readcookie.html'))
+        resp.set_cookie('userID', user)
+        
+        return resp
+
+@app.route('/getcookie')
+def getcookie():
+   name = request.cookies.get('userID')
+   return '<h1>welcome '+name+'</h1>'
 
 @app.route('/about-the-proyect')
 def about():
