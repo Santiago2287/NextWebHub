@@ -1,4 +1,4 @@
-from flask  import Flask, make_response, redirect, render_template, request, url_for, template_rendered, flash
+from flask  import Flask, make_response, redirect, render_template, request, session, url_for, template_rendered, flash
 from datetime import datetime
 from flask_mysqldb import MySQL
 from config import config
@@ -33,10 +33,23 @@ def date_now():
     return {
         'now': datetime.utcnow()
     }
+    
+    
+@app.context_processor
+def time_now():
+    current_time = datetime.utcnow()
+    formatted_time = current_time.strftime("%d:%m:%y %H:%M:%S")
+    return {
+        'hora': formatted_time
+    }
+
 # Endpoints
 @app.route('/')
 def index():
-    return render_template('index.html')
+    horas=time_now()
+    print("hola", horas["hora"])
+    return render_template('home.html')
+
 
 @app.route('/setcookie', methods = ['POST', 'GET'])
 def setcookie():
@@ -108,8 +121,25 @@ def log_in():
         if usuarioAut is not None:
             if usuarioAut.passwordu:
                 login_user(usuarioAut)
-                if usuarioAut.perfilu == 'C':
-                    return render_template('usuario.html')
+                if usuarioAut.perfilu == 'C':      
+                    # Consulta al carrito para obtener los productos
+                    selCarrito = db.connection.cursor()
+                    selCarrito.execute("SELECT * FROM carrito WHERE idusuario=%s", (usuarioAut.id,))
+                    carrito_data = selCarrito.fetchall()
+                    selCarrito.close()
+                    
+                    # Almacena los productos del carrito en la variable de sesión
+                    
+                     # Impresiones para depuración
+                    print("Datos del carrito:", carrito_data)
+                    print("Contenido de la sesión antes:", session)
+
+                    # Almacena los productos del carrito en la variable de sesión
+                    session['carrito'] = carrito_data
+                    
+                    print("Contenido de la sesión después:", session)
+                    productos = obtener_productos()
+                    return render_template('usuario.html', productos=productos) 
                 else:
                     return render_template('admin.html')
             else:
@@ -120,7 +150,96 @@ def log_in():
             return redirect(request.url)
     else:
         return render_template('log-in.html')
+    
+    
+def obtener_productos():
+    cursor = db.connection.cursor()
+    cursor.execute("SELECT * FROM producto_1")
+    productos = cursor.fetchall()
+    cursor.close()
+    return productos
 
+
+
+@app.route('/catalogo')
+def catalogo():    
+    productos = obtener_productos()
+    return render_template('catalogo.html', productos=productos)
+
+@app.route('/addtocar/<int:idproducto>/<int:precio>', methods=['GET'])
+def addtocar(idproducto, precio):
+    horas=time_now()
+    try:
+        if '_user_id' in session:
+            selCarrito = db.connection.cursor()
+            selCarrito.execute("SELECT * FROM carrito WHERE idproducto=%s AND idusuario=%s", (idproducto, session['_user_id'],))
+            carrito = selCarrito.fetchone()
+            selCarrito.close()
+            print(session["_user_id"])
+            print("Cosas del carrito:", carrito )
+
+            if carrito is not None:
+                idcarrito = carrito['idcarrito']
+                cantidad = carrito['cantidad'] + 1
+                importe = cantidad * precio
+                upCarrito = db.connection.cursor()
+                upCarrito.execute("UPDATE carrito SET cantidad=%s, importe=%s WHERE idcarrito=%s", (cantidad, importe, idcarrito))
+            else:
+                cantidad = 1
+                importe = precio
+                regCarrito = db.connection.cursor()
+                regCarrito.execute("INSERT INTO carrito (idproducto, idusuario, cantidad, fechaad, importe) VALUES (%s,%s,%s,%s,%s)", (idproducto, session['_user_id'], cantidad, horas["hora"], importe))
+                regCarrito.close()
+            
+            print("si entro pero no supe adonde s fue")
+            db.connection.commit()
+            session['Carrito'] += 1
+            print("Usuario no encontrado")
+            flash('El producto se ha añadido a tu carrito')
+        else:
+            print("NO se encontro usuario")
+            flash('Usuario no autenticado')
+    except Exception as e:
+        flash(f"Error al procesar la solicitud: {str(e)}")
+    finally:
+        return redirect(url_for('catalogo'))
+    
+
+
+@app.route('/sCarrito')
+def sCarrito():
+    selCarrito = db.connection.cursor()
+    selCarrito.execute("SELECT * FROM carrito INNER JOIN producto_1 ON carrito.idproducto = producto_1.idproducto WHERE idusuario=%s",(session['_user_id'],))
+    c = selCarrito.fetchall()
+    selCarrito.close()
+    return render_template('carrito.html', productos=c)
+
+@app.route('/dCarrito/<int:idcarrito>/<int:cantidad>', methods=['GET'])
+def dCarrito(idcarrito,cantidad):
+    delCarrito =   db.connection.cursor()
+    delCarrito.execute("DELETE FROM carrito WHERE idcarrito=%s",(idcarrito,))
+    db.connection.commit()
+    session['Carrito'] -= cantidad
+    flash('Articulo eliminado')
+    return redirect(url_for('sCarrito'))
+
+@app.route('/uCarrito', methods=['POST'])
+def uCarrito():
+    NumProductos = request.form['NumProductos']
+    n = 1
+    session['Carrito'] = 0
+    while n < int(NumProductos):
+        idcarrito   = request.form['idcarrito{}'.format(n)]
+        precio     = request.form['precio{}'.format(n)]
+        cantidad   = request.form['cantidad{}'.format(n)]
+        importe    = float(precio) * int(cantidad)
+        upCarrito   = db.connection.cursor()
+        upCarrito.execute("UPDATE carrito SET cantidad=%s, importe=%s WHERE idcarrito=%s", (cantidad, importe, idcarrito))
+        db.connection.commit()
+        session['Carrito'] += int(cantidad)
+        n += 1
+    flash('carrito actualizado')
+    return redirect(url_for('sCarrito'))
 
 app.route('/informacion')
 @app.route('/informacion/<string:nombre>')

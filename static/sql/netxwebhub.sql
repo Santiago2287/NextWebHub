@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-11-2023 a las 13:52:37
+-- Tiempo de generación: 21-11-2023 a las 08:55:08
 -- Versión del servidor: 5.7.41-log
 -- Versión de PHP: 7.4.33
 
@@ -24,16 +24,57 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `preferenciasu`
+-- Estructura de tabla para la tabla `carrito`
 --
 
-CREATE TABLE `preferenciasu` (
-  `id` int(11) NOT NULL,
-  `categorias` varchar(50) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
-  `nombre img` json NOT NULL,
-  `fechareg` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `carrito` (
+  `idcarrito` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `fechaad` datetime NOT NULL,
+  `importe` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`idcarrito`, `idproducto`, `idusuario`, `cantidad`, `fechaad`, `importe`) VALUES
+(4, 1, 84, 1, '2021-11-23 07:23:01', 100),
+(5, 2, 84, 1, '2021-11-23 07:23:42', 250);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto_1`
+--
+
+CREATE TABLE `producto_1` (
+  `idproducto` int(11) NOT NULL,
+  `precio` int(11) DEFAULT NULL,
+  `categoria` varchar(100) DEFAULT NULL,
+  `descripcion` varchar(300) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nombreimg` varchar(50) DEFAULT NULL,
+  `fechareg` varchar(19) DEFAULT NULL,
+  `nombrep` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `producto_1`
+--
+
+INSERT INTO `producto_1` (`idproducto`, `precio`, `categoria`, `descripcion`, `nombreimg`, `fechareg`, `nombrep`) VALUES
+(1, 100, 'Vape', 'El Vaporesso Xros 3 Mini Pod Kit, el hermano pequeño del nuevo Xros 3, es otro nuevo sistema pod de la familia XROS, la elección perfecta para una experiencia RDL. ', 'black.jpg', '03/10/2023 00:00', 'Vaporesso XROS 3 MINI Pod Kit'),
+(2, 250, 'Vape', 'Vaporesso nos trae lo último en dispositivos tipo Pod, el Xros Mini, un dispositivo compacto y que sorprende por su gran diseño y calidad.', 'vaporesso-xros-mini-pod-kit-4.jpg', '04/10/2023 00:00', 'Vaporesso XROS Mini Pod Kit'),
+(3, 500, 'Vape', 'La conocida marca Joyetech nos trae el nuevo eGo Pod Kit, un dispositivo tipo pod con un diseño que recuerda a su clásico dispositivo eGo AIO pero acorde con los tiempos y tendencias más actuales.', 'joyetech-ego-pod-kit-1000mah-3.jpg', '04/10/2023 09:00', 'Joyetech eGo Pod Kit 1000mAh'),
+(4, 500, 'Vape', 'Si lleva vapeando un tiempo y conoce los productos de Joyetech, podría pensar que el nuevo eGo AIO se trata de una nueva versión del ya conocido eGo One\r\n', 'joyetech-aio-1_8.jpg', '04/10/2023 08:00', 'Joyetech eGo AIO Kit'),
+(5, 480, 'Vape', 'Ya puedes hacerte con lo último de Vaporesso. El Swag PX80 Kit es un dispositivo tipo Pod Mod que alcanza los 80W de potencia, y todo ello en un cuerpo realmente compacto y ergonómico.', 'vaporesso-swag-px80-5_1.jpg', '04/10/2023 07:00', 'Vaporesso Swag PX80 Kit'),
+(6, 769, 'Vape', '¡Liquideo nos presenta Wpuff con sabor a Chocolate con Avellanas, una novedosa y ecológica propuesta en formato POD desechable y reciclable, Wpuff con una inmensa variedad de sabores!\r\n', 'chocolate_avellanas.jpg', '04/10/2023 10:00', 'Vaporesso Swag PX80 Kit'),
+(7, 800, 'Vape', 'El Caliburn G2 Pod Kit mantiene la forma del nuevo A2, compacto y eficiente, y se posiciona entre los mejores Pod aptos para vapeadores principiantes.', 'caliburn_g2_arcoirisjpg.jpg', '05/10/2023 11:00', 'UWELL Caliburn G2 POD Kit'),
+(8, 200, 'Vape', 'A diferencia de la serie DRAG anterior, el Drag Nano 2 de VOOPOO tiene un cuerpo pequeño pero potente. No sólo perpetúa el rendimiento profesional de la serie DRAG.', 'drag-nano-2.jpg', '05/10/2023 11:00', 'VOOPOO Drag Nano 2 800mAh'),
+(9, 370, 'Vape', '¡Liquideo nos presenta Wpuff con sabor a Mashmalow (nubes), una novedosa y ecológica propuesta en formato POD desechable y reciclable.', 'mashmallow.jpg', '05/10/2023 11:00', 'Wpuff Mashmalow Desechable 600 puffs'),
+(10, 450, 'Vape', 'El Aspire PockeX Pocket AIO es un moderno dispositivo todo en uno con una capacidad de batería de 1500mAh y una capacidad de e-líquido de 2ml. ', 'aspire-pockex-aio-kit-1500mah-6_7.jpg', '05/10/2023 11:00', 'Aspire PockeX Pocket AIO 1500mAh');
 
 -- --------------------------------------------------------
 
@@ -120,17 +161,43 @@ INSERT INTO `usuario` (`id`, `nameu`, `emailu`, `passwordu`, `perfilu`) VALUES
 (79, 'santiago', 'ciberautronauta22@gmail.com', 'pbkdf2:sha256:600000$dlQdlCY8yNtutSPh$793ba9fcd026ff4abadacda40b2c3a4bed8caa5cd92b1b19593debde71cc2cb9', 'C'),
 (80, 'santiago', 'ciberautronauta22@gmail.com', 'pbkdf2:sha256:600000$WlE1HpiT3mOQVpRp$171c05852a5d89342e104739b05942257fef5919b66f42c75a90a7dc67cc8387', 'C'),
 (81, 'santiago', 'santiagonano13@gmail.com', 'pbkdf2:sha256:600000$lX2rLzLDrFi1XYCQ$8250b0ccb9bdada21571a32a01f8073c4074bdb6caaf574fb10b1240a493736d', 'C'),
-(82, 'santiago', 'santiagonano13@gmail.com', 'pbkdf2:sha256:600000$LJQmUfRk0QfS0SCa$514892479a17104f3639567bb7331a191438892dbc7b220fb0bcec426c5b02e1', 'C');
+(82, 'santiago', 'santiagonano13@gmail.com', 'pbkdf2:sha256:600000$LJQmUfRk0QfS0SCa$514892479a17104f3639567bb7331a191438892dbc7b220fb0bcec426c5b02e1', 'C'),
+(83, 'kiki', 'kiki@gmail.com', 'pbkdf2:sha256:600000$evr4bPXLgMl1vHoj$482f8a1eecbc54c59fc517cd03e64518ef433f8d4b9f5fcf6f0667c21593f21e', 'C'),
+(84, 'hola', 'hola@gmail.com', 'pbkdf2:sha256:600000$gmlUqoIepR3QWd6O$8126f27adf0feddcb00bd158c8afe6f8a679560b7288ef0a83141acfa5921233', 'C');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `venta`
+--
+
+CREATE TABLE `venta` (
+  `idventa` int(11) NOT NULL,
+  `direccion` int(11) NOT NULL,
+  `referencia` int(11) NOT NULL,
+  `formapago` int(11) NOT NULL,
+  `totaldecompra` int(11) NOT NULL,
+  `infodecompra` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `preferenciasu`
+-- Indices de la tabla `carrito`
 --
-ALTER TABLE `preferenciasu`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `carrito`
+  ADD PRIMARY KEY (`idcarrito`),
+  ADD KEY `idproducto` (`idproducto`),
+  ADD KEY `idusuario` (`idusuario`);
+
+--
+-- Indices de la tabla `producto_1`
+--
+ALTER TABLE `producto_1`
+  ADD PRIMARY KEY (`idproducto`);
 
 --
 -- Indices de la tabla `usuario`
@@ -139,30 +206,56 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`idventa`),
+  ADD KEY `idusuario` (`idusuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `preferenciasu`
+-- AUTO_INCREMENT de la tabla `carrito`
 --
-ALTER TABLE `preferenciasu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `carrito`
+  MODIFY `idcarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `producto_1`
+--
+ALTER TABLE `producto_1`
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `preferenciasu`
+-- Filtros para la tabla `carrito`
 --
-ALTER TABLE `preferenciasu`
-  ADD CONSTRAINT `preferenciasu_ibfk_1` FOREIGN KEY (`id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`idproducto`) REFERENCES `producto_1` (`idproducto`),
+  ADD CONSTRAINT `carrito_ibfk_3` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`);
+
+--
+-- Filtros para la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

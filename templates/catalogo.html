@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block titulo %}
+ Nuestro catalogo 
+ {{ super() }}
+{% endblock %}
+{% block contenido %}
+  
+        
+    
+    
+    <div class="contenedor">
+      <h1>Nuestros Productos en Venta</h1>
+    
+            
+    <div class="container">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for producto in productos %}
+          <div class="col">
+              <div class="card">
+                  
+                  <img src= "{{url_for('static',filename='img/' + producto[4]) }}" alt="Imagen">
+    
+    
+                  <div class="card-body">
+                      <h5 class="card-title">{{ producto[6] }}</h5>
+                      <p class="card-text">{{ producto[3] }}</p>
+                      <p class="card-text">Precio: ${{ producto[1] }}</p>
+                      
+          <a href="/addtocar/{{producto[0]}}/{{producto[1]}}" class="btn btn-primary">Agregar a carrito <i style="font-size: 25px;" class="fas fa-cart-plus"></i></a>
+                  </div>
+              </div>            </div>
+          {% endfor %}
+      </div>
+    </div>
+    
+    </div>
+    
+    
+     
+    
+    {% endblock %}
