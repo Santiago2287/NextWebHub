@@ -1,5 +1,101 @@
 {% extends 'layout.html' %}
 {% block titulo %} Carrito {% endblock %}
 {% block contenido %} 
-el carrito
+<header class="container" style="padding-top: 150px;">
+    <h1>carrito</h1>
+    {% if session['Carrito'] == 0 %}
+    <div class="alert alert-success ml-auto mt-2" role="alert">
+      <i class="fas fa-exclamation"></i> Tu carrito está vacío 
+    </div>
+    <a href="/catalogo" class="btn btn-outline-dark btn-lg">Volver a la tienda</a>
+    {% else %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success ml-auto mt-2" role="alert">
+      <i class="fas fa-check"></i>{{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="row container">
+    <div class="col-lg-8">
+    <form action="/uCarrito" method="POST">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>				
+            <th scope="col">ARTÍCULO</th>
+            <th scope="col">PRECIO UNITARIO</th>
+            <th scope="col">DESCRIPCIÓN</th>
+            <th scope="col">CANTIDAD</th>
+            <th scope="col">SUBTOTAL</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% set n = [1] %}
+            {% set NumProductos = [1] %}
+            {% set TotalPago = [0] %}
+            {% for p in productos %}
+            <tr>
+                <th scope="row">{{n[0]}}</th>
+                <td><img src="/static/img/{{p.NombreImg}}" width="70" height="70" alt="">
+                  <input type="hidden" name="IdCarrito{{n[0]}}" value="{{p.IdCarrito}}"></td>
+                <td><input type="hidden" name="PrecioP{{n[0]}}" value="{{p.PrecioP}}">${{p.PrecioP}}</td>
+                <td>{{p.DescripcionP}}</td>
+                <td><input type="number" name="CantidadC{{n[0]}}" value="{{p.CantidadC}}" 
+                style="width:45px;height:42px; text-align:center;"></td>
+                <td>${{p.SubTotal}}</td>
+                <td><a class="btn close" href="/dCarrito/{{p.IdCarrito}}/{{p.CantidadC}}"  style="font-size:18px;"><i class="fas fa-times"></i></a><td>
+            </tr>
+            {% if n.append(n.pop() + 1) %}{% endif %}
+            {% if NumProductos.append(NumProductos.pop() + 1) %}{% endif %}
+            {% if TotalPago.append(TotalPago.pop() + p.SubTotal) %}{% endif %}
+          {% endfor %}
+          <thead>
+            <tr>
+              <th scope="col" colspan="4" style="font-size: 20px; text-align:center;">T O T A L</th>
+              <th scope="row" colspan="2" style="text-align: center; font-size: 20px;">${{TotalPago[0]}}</th>
+            </tr>
+          </thead>
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-outline-dark btn-lg">Actualizar Carrito</button>
+      <input type="hidden" name="NumProductos" value="{{NumProductos[0]}}">
+    </form>
+    </div>
+    <div class="col-lg-4">
+        <p>
+          <a href="/catalogo" class="btn btn-outline-dark btn-lg btn-block">Seguir comprando</a> 
+          <a class="btn btn-outline-dark btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Finalizar Compra
+          </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <form action="/iVenta" method="POST">
+            <div class="form-group">
+              <label>Forma Pago</label>
+            <select class="custom-select" name="FormaPagoV">
+              <option selected>Selecciona una forma de pago</option>
+              <option value="C">Credito/Debito</option>
+              <option value="P">PayPal</option>
+            </select>
+            </div>
+            <div class="form-group">
+              <label>Direccion</label>
+            <textarea class="form-control" name="DireccionV" rows="5"></textarea>
+            </div>
+            <input type="hidden" name="TotalV" value="{{TotalPago[0]}}">
+            <button type="submit" class="btn btn-outline-dark btn-lg btn-block">Comprar</button>
+            </form>
+          </div>
+        </div>
+       
+    </div>
+    </div>
+    {% endif %}
+</header>
+El carrito
 {% endblock %}
