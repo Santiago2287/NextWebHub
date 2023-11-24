@@ -212,7 +212,7 @@ def sCarrito():
     selCarrito.execute("SELECT * FROM carrito INNER JOIN producto_1 ON carrito.idproducto = producto_1.idproducto WHERE idusuario=%s",(session['_user_id'],))
     c = selCarrito.fetchall()
     selCarrito.close()
-    return render_template('carrito.html', productos=c)
+    return render_template('cart.html', productos=c)
 
 @app.route('/dCarrito/<int:idcarrito>/<int:cantidad>', methods=['GET'])
 def dCarrito(idcarrito,cantidad):
