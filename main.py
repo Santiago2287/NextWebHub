@@ -211,8 +211,10 @@ def sCarrito():
     selCarrito = db.connection.cursor()
     selCarrito.execute("SELECT * FROM carrito INNER JOIN producto_1 ON carrito.idproducto = producto_1.idproducto WHERE idusuario=%s",(session['_user_id'],))
     c = selCarrito.fetchall()
+    for o in c:
+        print(f"Un producto {o[6]},-------")
     selCarrito.close()
-    return render_template('cart.html', productos=c)
+    return render_template('carrito.html', productos=c)
 
 @app.route('/dCarrito/<int:idcarrito>/<int:cantidad>', methods=['GET'])
 def dCarrito(idcarrito,cantidad):
@@ -227,19 +229,55 @@ def dCarrito(idcarrito,cantidad):
 def uCarrito():
     NumProductos = request.form['NumProductos']
     n = 1
-    session['Carrito'] = 0
+    total_carrito = 0
+
     while n < int(NumProductos):
-        idcarrito   = request.form['idcarrito{}'.format(n)]
-        precio     = request.form['precio{}'.format(n)]
-        cantidad   = request.form['cantidad{}'.format(n)]
-        importe    = float(precio) * int(cantidad)
-        upCarrito   = db.connection.cursor()
-        upCarrito.execute("UPDATE carrito SET cantidad=%s, importe=%s WHERE idcarrito=%s", (cantidad, importe, idcarrito))
+        idcarrito = request.form['idcarrito{}'.format(n)]
+        precio = request.form['precio{}'.format(n)]
+        cantidad = request.form['cantidad{}'.format(n)]
+        importe = float(precio) * int(cantidad)
+
+        upCarrito = db.connection.cursor()
+        upCarrito.execute("UPDATE carrito SET cantidad=%s, importe=%s WHERE idcarrito=%s", (5, importe, idcarrito))
         db.connection.commit()
-        session['Carrito'] += int(cantidad)
+
+        total_carrito += int(cantidad)
         n += 1
-    flash('carrito actualizado')
+
+    session['Carrito'] = total_carrito
+    flash('Carrito actualizado')
     return redirect(url_for('sCarrito'))
+
+@app.route('/iVenta', methods=['POST'])
+def iVenta():
+    try:
+        FormaPagoV = request.form['FormaPagoV']
+        TotalV = request.form['TotalV']
+        DireccionV = request.form['DireccionV']
+        FechaPagoV = datetime.now()
+
+        with db.connection.cursor() as regVenta:
+            regVenta.execute("INSERT INTO venta (direccion, formapago, totaldecompra, idusuario, fechapago) VALUES (%s,%s,%s,%s,%s)",
+                             (DireccionV, FormaPagoV, TotalV, session['_user_id'], FechaPagoV))
+            db.connection.commit()
+
+            IdVenta = regVenta.lastrowid
+
+        with db.connection.cursor() as upCarrito:
+            upCarrito.execute("UPDATE carrito SET idventa=%s WHERE idusuario=%s AND idventa IS NULL", (IdVenta, session['_user_id']))
+            db.connection.commit()
+
+        session['Carrito'] = 0
+
+        # Resto del código para enviar el correo electrónico...
+
+        flash('Gracias por su compra!')
+        return redirect(url_for('catalogo'))
+
+    except Exception as e:
+        flash(f"Error al procesar la compra: {str(e)}")
+        return redirect(url_for('catalogo'))
+
 
 app.route('/informacion')
 @app.route('/informacion/<string:nombre>')
