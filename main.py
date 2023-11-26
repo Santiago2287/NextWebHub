@@ -48,7 +48,7 @@ def time_now():
 def index():
     horas=time_now()
     print("hola", horas["hora"])
-    return render_template('home.html')
+    return render_template('index.html')
 
 
 @app.route('/setcookie', methods = ['POST', 'GET'])
@@ -265,6 +265,20 @@ def iVenta():
 
         with db.connection.cursor() as upCarrito:
             upCarrito.execute("UPDATE carrito SET idventa=%s WHERE idusuario=%s AND idventa IS NULL", (IdVenta, session['_user_id']))
+            db.connection.commit()
+
+            # Obtener los productos del carrito del usuario
+            upCarrito.execute("SELECT idproducto, cantidad FROM carrito WHERE idusuario=%s AND idventa=%s", (session['_user_id'], IdVenta))
+            productos_carrito = upCarrito.fetchall()
+
+            # Insertar productos en la tabla 'venta_producto'
+            for producto in productos_carrito:
+                upCarrito.execute("INSERT INTO venta_producto (idventa, idproducto, cantidad) VALUES (%s, %s, %s)",
+                                  (IdVenta, producto['idproducto'], producto['cantidad']))
+                db.connection.commit()
+
+            # Eliminar los registros del usuario de la tabla 'carrito'
+            upCarrito.execute("DELETE FROM carrito WHERE idusuario=%s AND idventa IS NOT NULL", (session['_user_id'],))
             db.connection.commit()
 
         session['Carrito'] = 0
