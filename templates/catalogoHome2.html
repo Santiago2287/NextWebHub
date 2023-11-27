@@ -1,10 +1,10 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 {% block titulo %}
-About the project
-{{ super() }}
+ Nuestro catalogo 
+ {{ super() }}
 {% endblock %}
-
 {% block contenido %}
+
 <!-- ***** Header Area Start ***** -->
 <header class="header-area header-sticky">
  <div class="container">
@@ -40,7 +40,44 @@ About the project
  </div>
 </header>
 <!-- ***** Header Area End ***** -->
+  
+  <section class="popular-categories">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            <h6>Nuestros Productos</h6>
+            <h4>Todos los <em>Productos</em> con los que <em>Contamos</em> son:</h4>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="main-button">
+            <a href="categories.html">Discover All Categories</a>
+          </div>
+        </div>
+        {% for p in productos%}
+        <div class="col-lg-3 col-sm-6">
+          <div class="popular-item">
+            <div class="top-content">
+              
+              <div class="right">
+                <h4>{{p[2]}}</h4>
+                <span> {{p[6]}}</span>
+              </div>
+            </div>
+            <div class="thumb">
+              <img src="{{url_for('static',filename='img/' + p[4]) }}" alt="">
+              <span class="category">Precio:</span>
+              <span class="likes"><i class="fa fa-heart"></i> {{p[1]}}</span>
+            </div>
+            <div class="border-button">
+              <a href="{{url_for('log_in')}}">Comprar ahora.</a>
+            </div>
+          </div>
+        </div>
+        {% endfor%}
+      </div>
+    </div>
+  </section>
 
-<h1> Hola pepe </h1>
-
-{% endblock %}
+  {% endblock %}

@@ -21,6 +21,46 @@
   </div>
 </nav>
 
+<header class="header-area header-sticky">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="index.html" class="logo">
+                    <img src="{{ url_for('static', filename='img/logo3.png') }}" alt="SnapX Photography Template">
+                </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                      <li><a href="{{url_for('index')}}" class="active">Home</a></li>
+                      
+                      <li><a href="{{url_for('catalogoHome')}}">Catalogo</a></li>
+                      <li class="has-sub">
+                        <a href="javascript:void(0)">Photos &amp; Videos</a>
+                        <ul class="sub-menu">
+                            <li><a href="contests.html">Contests</a></li>
+                            <li><a href="contest-details.html">Single Contest</a></li>
+                        </ul>
+                    </li>
+                  </ul> 
+                  <div class="border-button">
+                    <a href="{{url_for('log_in')}}"><i class="fa fa-user"></i> Log in</a>
+                  </div>  
+                  <div class="border-button">
+                    <a href="{{url_for('sign_up')}}"><i class="fa fa-user"></i> Sign In</a>
+                  </div>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+              </nav>
+          </div>
+      </div>
+  </div>
+ </header>
+ <!-- ***** Header Area End ***** -->
+ 
     
 <div class="contenedor">
   <h1>Nuestros Productos en Venta</h1>

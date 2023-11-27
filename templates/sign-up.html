@@ -22,7 +22,7 @@ Sign up
                      <li>
                       <a href="{{url_for('about')}}">About the project</a>
                     </li>
-                     <li><a href="{{url_for('catalogo')}}">Productos</a></li>
+                     <li><a href="{{url_for('catalogoHome')}}">Catalogo</a></li>
                  </ul> 
                  <div class="border-button">
                    <a href="{{url_for('log_in')}}"><i class="fa fa-user"></i> Log in</a>
@@ -40,6 +40,8 @@ Sign up
  </div>
 </header>
 <!-- ***** Header Area End ***** -->
+
+
 <style>
 
     :root {
@@ -56,7 +58,7 @@ Sign up
       margin: 0;
       font-family: 'Quicksand', sans-serif;
     }
-    .login {
+    .sign_up {
       width: 100%;
       height: 100vh;
       display: grid;
@@ -67,12 +69,7 @@ Sign up
       grid-template-rows: auto 1fr auto;
       width: 300px;
     }
-    .logo {
-      width: 150px;
-      margin-bottom: 48px;
-      justify-self: center;
-      display: none;
-    }
+    
     .title {
       font-size: var(--lg);
       margin-bottom: 36px;
@@ -130,10 +127,12 @@ Sign up
       }
     }
   </style>
-
+<br>
+<br>
 <div class="sign_up">
     <div class="form-container">
-      <h1 class="title">My account</h1>
+      <h1>Crear cuenta:</h1>
+      <br>
 
       <form action="/sign_up" method="POST" class="form">
         <div>

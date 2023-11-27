@@ -20,7 +20,7 @@ NextWeb hub
                        <li>
                         <a href="{{url_for('about')}}">About the project</a>
                       </li>
-                       <li><a href="{{url_for('catalogo')}}">Productos</a></li>
+                       <li><a href="{{url_for('catalogoHome')}}">Catalogo</a></li>
                    </ul> 
                    <div class="border-button">
                      <a href="{{url_for('log_in')}}"><i class="fa fa-user"></i> Log in</a>
@@ -61,141 +61,22 @@ NextWeb hub
      <div class="row">
        <div class="col-lg-12">
          <div class="owl-features owl-carousel" style="position: relative; z-index: 5;">
+         {% for producto in productos %}
            <div class="item">
              <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
+               <img src= "{{url_for('static',filename='img/' + producto[4]) }}" alt="">
                <div class="hover-effect">
                  <div class="content">
-                   <h4>Walk In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
+                   <h4>{{producto[6]}} <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
                    <ul>
-                     <li><span>Contest Winner:</span> Vincent Adam</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $1.000 + Camera Nikon</li>
+                     <li><span>Categoria:</span>{{producto[2]}}</li>
+                     <li><span>Precio:</span> {{producto[1]}}</li>
                    </ul>
                  </div>
                </div>
              </div>
            </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Smile In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Thomas Eddy</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $1,200 + Canon EOS R7</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Happy In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Vincent Adam</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $1,800 + Canon EOS R6</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Walk In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Thomas Eddy</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $8,400 + Canon EOS R1</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Run In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Vincent Adam</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $5,500 + Canon EOS R3</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Stay In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Thomas Eddy</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $4,400 + Canon EOS R5</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Walk In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Vincent Adam</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $3,800 + Canon EOS R6</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Shoot In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Vincent Adam</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $2,400 + Canon EOS R7</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="item">
-             <div class="thumb">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-               <div class="hover-effect">
-                 <div class="content">
-                   <h4>Fly In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                   <ul>
-                     <li><span>Contest Winner:</span> Vincent Adam</li>
-                     <li><span>Contest Author:</span> Anthony Soft</li>
-                     <li><span>Awards:</span> $1,200 + Canon EOS R10</li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-           </div>
+         {% endfor %}
          </div>
        </div>
      </div>
@@ -212,7 +93,7 @@ NextWeb hub
                   <div class="left-content">
                       <div class="thumb">
                           
-                          <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
+                          <img src="{{ url_for('static', filename='img/cate1.jpg') }}" alt="">
                       </div>
                   </div>
               </div>
@@ -223,19 +104,19 @@ NextWeb hub
                               <div class="right-first-image">
                                   <div class="thumb">
                                       <div class="inner-content">
-                                          <h4>Women</h4>
-                                          <span>Best Clothes For Women</span>
+                                          <h4>Laptops</h4>
+                                          <span>Las mejor laptops al mejor precio</span>
                                       </div>
                                       <div class="hover-content">
                                           <div class="inner">
-                                              <h4>Women</h4>
-                                              <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                              <h4>Laptops</h4>
+                                              <p>Contamos con una gran Variedad de laptops</p>
                                               <div class="main-border-button">
-                                                  <a href="#">Discover More</a>
+                                                  <a href="#">Ver más</a>
                                               </div>
                                           </div>
                                       </div>
-                                      <img src="{{ url_for('static', filename='img/fon.png') }}">
+                                      <img src="{{ url_for('static', filename='img/cate2.jpg') }}">
                                   </div>
                               </div>
                           </div>
@@ -243,19 +124,19 @@ NextWeb hub
                               <div class="right-first-image">
                                   <div class="thumb">
                                       <div class="inner-content">
-                                          <h4>Men</h4>
-                                          <span>Best Clothes For Men</span>
+                                          <h4>Audifonos</h4>
+                                          <span>Los mejor Audifonos</span>
                                       </div>
                                       <div class="hover-content">
                                           <div class="inner">
-                                              <h4>Men</h4>
-                                              <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                              <h4>Audifonos</h4>
+                                              <p>Tenemos una Variedad de Audifonos para todos.</p>
                                               <div class="main-border-button">
-                                                  <a href="#">Discover More</a>
+                                                  <a href="#">Ver más</a>
                                               </div>
                                           </div>
                                       </div>
-                                      <img src="{{ url_for('static', filename='img/fon.png') }}">
+                                      <img src="{{ url_for('static', filename='img/cate3.jpg') }}">
                                   </div>
                               </div>
                           </div>
@@ -263,19 +144,19 @@ NextWeb hub
                               <div class="right-first-image">
                                   <div class="thumb">
                                       <div class="inner-content">
-                                          <h4>Kids</h4>
-                                          <span>Best Clothes For Kids</span>
+                                          <h4>Teclados</h4>
+                                          <span>Los mejores Teclados y de máyor calidad</span>
                                       </div>
                                       <div class="hover-content">
                                           <div class="inner">
-                                              <h4>Kids</h4>
-                                              <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                              <h4>Teclados</h4>
+                                              <p>Teclados de alta calidad, exelentes para todos los gustos.</p>
                                               <div class="main-border-button">
-                                                  <a href="#">Discover More</a>
+                                                  <a href="#">Ver más</a>
                                               </div>
                                           </div>
                                       </div>
-                                      <img src="{{ url_for('static', filename='img/fon.png') }}">
+                                      <img src="{{ url_for('static', filename='img/cate4.jpg') }}">
                                   </div>
                               </div>
                           </div>
@@ -283,19 +164,19 @@ NextWeb hub
                               <div class="right-first-image">
                                   <div class="thumb">
                                       <div class="inner-content">
-                                          <h4>Accessories</h4>
-                                          <span>Best Trend Accessories</span>
+                                          <h4>Accesorios</h4>
+                                          <span>Los mejor Accesorios para tu setup</span>
                                       </div>
                                       <div class="hover-content">
                                           <div class="inner">
-                                              <h4>Accessories</h4>
-                                              <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                              <h4>Accesorios</h4>
+                                              <p>Contamos con una gran Variedad de bellos Accesorios</p>
                                               <div class="main-border-button">
-                                                  <a href="#">Discover More</a>
+                                                  <a href="#">Ver más</a>
                                               </div>
                                           </div>
                                       </div>
-                                      <img src="{{ url_for('static', filename='img/fon.png') }}">
+                                      <img src="{{ url_for('static', filename='img/cate5.jpg') }}">
                                   </div>
                               </div>
                           </div>
@@ -313,8 +194,8 @@ NextWeb hub
      <div class="row">
        <div class="col-lg-6">
          <div class="section-heading">
-           <h6>Our Categories</h6>
-           <h4>Check Out <em>Popular</em> Contest <em>Categories</em></h4>
+           <h6>Nuestras Categorias</h6>
+           <h4>Los Producto Más <em>Popular</em> De Nuestras <em>Categorias</em></h4>
          </div>
        </div>
        <div class="col-lg-6">
@@ -322,90 +203,31 @@ NextWeb hub
            <a href="categories.html">Discover All Categories</a>
          </div>
        </div>
+       {% for p in productos%}
+         {% if loop.index <= 4 %}
        <div class="col-lg-3 col-sm-6">
          <div class="popular-item">
            <div class="top-content">
              <div class="icon">
-               <img src="{{ url_for('static', filename='img/fon.png') }}" alt="auto">
+               <img src="{{url_for('static',filename='img/' + p[4]) }}" alt="auto">
              </div>
              <div class="right">
-               <h4>Nature Pic Contest</h4>
-               <span><em>126</em> Available Contests</span>
+               <h4>{{p[2]}}</h4>
+               <span><em>{{p[1]}}</em> Precio</span>
              </div>
            </div>
            <div class="thumb">
-             <img src="{{ url_for('static', filename='img/fon.png') }}" alt="">
-             <span class="category">Top Contest</span>
-             <span class="likes"><i class="fa fa-heart"></i> 256</span>
+             <img src="{{url_for('static',filename='img/' + p[4]) }}" alt="">
+             <span class="category">Me encatan:</span>
+             <span class="likes"><i class="fa fa-heart"></i> +100</span>
            </div>
            <div class="border-button">
              <a href="contest-details.html">Browse Nature Pic Contests</a>
            </div>
          </div>
        </div>
-       <div class="col-lg-3 col-sm-6">
-         <div class="popular-item">
-           <div class="top-content">
-             <div class="icon">
-               <img src="assets/images/icon-02.png" alt="">
-             </div>
-             <div class="right">
-               <h4>Random Pic Contest</h4>
-               <span><em>116</em> Available Contests</span>
-             </div>
-           </div>
-           <div class="thumb">
-             <img src="assets/images/popular-02.png" alt="">
-             <span class="category">Top Contest</span>
-             <span class="likes"><i class="fa fa-heart"></i> 256</span>
-           </div>
-           <div class="border-button">
-             <a href="contest-details.html">Browse Random Pic Contests</a>
-           </div>
-         </div>
-       </div>
-       <div class="col-lg-3 col-sm-6">
-         <div class="popular-item">
-           <div class="top-content">
-             <div class="icon">
-               <img src="assets/images/icon-03.png" alt="">
-             </div>
-             <div class="right">
-               <h4>Portrait Pic Contest</h4>
-               <span><em>164</em> Available Contests</span>
-             </div>
-           </div>
-           <div class="thumb">
-             <img src="assets/images/popular-03.png" alt="">
-             <span class="category">Top Contest</span>
-             <span class="likes"><i class="fa fa-heart"></i> 256</span>
-           </div>
-           <div class="border-button">
-             <a href="contest-details.html">Browse Portrait Pic Contests</a>
-           </div>
-         </div>
-       </div>
-       <div class="col-lg-3 col-sm-6">
-         <div class="popular-item">
-           <div class="top-content">
-             <div class="icon">
-               <img src="assets/images/icon-04.png" alt="">
-             </div>
-             <div class="right">
-               <h4>Space Pic Contest</h4>
-               <span><em>135</em> Available Contests</span>
-             </div>
-           </div>
-           <div class="thumb">
-             <img src="assets/images/popular-04.png" alt="">
-             <span class="category">Top Contest</span>
-             <span class="likes"><i class="fa fa-heart"></i> 256</span>
-           </div>
-           <div class="border-button">
-             <a href="contest-details.html">Browse Space Pic Contests</a>
-           </div>
-         </div>
-       </div>
+       {% endif %}
+       {% endfor%}
      </div>
    </div>
  </section>

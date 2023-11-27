@@ -48,27 +48,17 @@ def time_now():
 def index():
     horas=time_now()
     print("hola", horas["hora"])
-    return render_template('index.html')
-
-
-@app.route('/setcookie', methods = ['POST', 'GET'])
-def setcookie():
-   if request.method == 'POST':
-        user = request.form['nm']
-   
-        resp = make_response(render_template('readcookie.html'))
-        resp.set_cookie('userID', user)
-        
-        return resp
-
-@app.route('/getcookie')
-def getcookie():
-   name = request.cookies.get('userID')
-   return '<h1>welcome '+name+'</h1>'
+    productos = obtener_productos()
+    return render_template('index.html', productos=productos)
 
 @app.route('/about-the-proyect')
 def about():
     return render_template('about.html')
+
+@app.route('/catalogoHome')
+def catalogoHome():
+    productos = obtener_productos()
+    return render_template('catalogoHome2.html', productos=productos)
 
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
@@ -121,6 +111,7 @@ def log_in():
         if usuarioAut is not None:
             if usuarioAut.passwordu:
                 login_user(usuarioAut)
+                nombreu=usuarioAut.nameu
                 if usuarioAut.perfilu == 'C':      
                     # Consulta al carrito para obtener los productos
                     selCarrito = db.connection.cursor()
@@ -139,7 +130,7 @@ def log_in():
                     
                     print("Contenido de la sesión después:", session)
                     productos = obtener_productos()
-                    return render_template('usuario.html', productos=productos) 
+                    return render_template('usuarioHome.html', usuario=nombreu, productos=productos) 
                 else:
                     return render_template('admin.html')
             else:

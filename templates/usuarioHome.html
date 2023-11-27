@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+  
+<header class="header-area header-sticky">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="index.html" class="logo">
+                    <img src="{{ url_for('static', filename='img/logo3.png') }}" alt="SnapX Photography Template">
+                </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                      <li><a href="{{url_for('catalogoHome')}}">Catalogo</a></li>
+                      <li><a class="active">{{usuario}}</a></li>
+                      <li class="has-sub">
+                        <a href="javascript:void(0)">Perfil</a>
+                        <ul class="sub-menu">
+                            <li><a href="contests.html">Editar Perfil</a></li>
+                            <li><a href="{{url_for('logout')}}">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                  </ul> 
+                  
+                   
+                  <div class="border-button">
+                    <a href="{{url_for('sCarrito')}}"><i class="fa fa-shopping-cart"></i> Carrito</a>
+                  </div>
+                  
+                  <!-- ***** Menu End ***** -->
+              </nav>
+          </div>
+      </div>
+  </div>
+ </header>
+ <!-- ***** Header Area End ***** -->
+
+ 
+     <!-- HOME -->
+     <section id="home">
+      <div class="row">
+
+                <div class="owl-carousel owl-theme home-slider">
+                     <div class="item item-first">
+                          <div class="caption">
+                               <div class="container">
+                                    <div class="col-md-6 col-sm-12">
+                                         <h1>Distance Learning Education Center</h1>
+                                         <h3>Our online courses are designed to fit in your industry supporting all-round with latest technologies.</h3>
+                                         <a href="#feature" class="section-btn btn btn-default smoothScroll">Discover more</a>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+
+                     <div class="item item-second">
+                          <div class="caption">
+                               <div class="container">
+                                    <div class="col-md-6 col-sm-12">
+                                         <h1>Start your journey with our practical courses</h1>
+                                         <h3>Our online courses are built in partnership with technology leaders and are designed to meet industry demands.</h3>
+                                         <a href="#courses" class="section-btn btn btn-default smoothScroll">Take a course</a>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+
+                     <div class="item item-third">
+                          <div class="caption">
+                               <div class="container">
+                                    <div class="col-md-6 col-sm-12">
+                                         <h1>Efficient Learning Methods</h1>
+                                         <h3>Nam eget sapien vel nibh euismod vulputate in vel nibh. Quisque eu ex eu urna venenatis sollicitudin ut at libero. Visit <a rel="nofollow" href="https://www.facebook.com/templatemo">templatemo</a> page.</h3>
+                                         <a href="#contact" class="section-btn btn btn-default smoothScroll">Let's chat</a>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+                </div>
+      </div>
+ </section>
+
+
+ <!-- FEATURE -->
+ <section id="feature">
+      <div class="container">
+           <div class="row">
+
+                <div class="col-md-4 col-sm-4">
+                     <div class="feature-thumb">
+                          <span>01</span>
+                          <h3>Trending Courses</h3>
+                          <p>Known is free education HTML Bootstrap Template. You can modify in any way and use this for your website.</p>
+                     </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                     <div class="feature-thumb">
+                          <span>02</span>
+                          <h3>Books & Library</h3>
+                          <p>You are allowed to use Known HTML Template for your commercial or non-commercial websites.</p>
+                     </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                     <div class="feature-thumb">
+                          <span>03</span>
+                          <h3>Certified Teachers</h3>
+                          <p>Please spread a word about us. Template redistribution is NOT allowed on any download website.</p>
+                     </div>
+                </div>
+
+           </div>
+      </div>
+ </section>
+
+ 
+    
+<div class="contenedor">
+  <h1>Nuestros Productos en Venta</h1>
+
+        
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for producto in productos %}
+      <div class="col">
+          <div class="card">
+              
+              <img src= "{{url_for('static',filename='img/' + producto[4]) }}" alt="Imagen">
+
+
+              <div class="card-body">
+                  <h5 class="card-title">{{ producto[6] }}</h5>
+                  <p class="card-text">{{ producto[3] }}</p>
+                  <p class="card-text">Precio: ${{ producto[1] }}</p>
+                  
+      <a href="/addtocar/{{producto[0]}}/{{producto[1]}}" class="btn btn-primary">Agregar a carrito <i style="font-size: 25px;" class="fas fa-cart-plus"></i></a>
+              </div>
+          </div>            </div>
+      {% endfor %}
+  </div>
+</div>
+
+</div>
+
+{% endblock %}
