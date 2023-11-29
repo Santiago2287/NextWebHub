@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-11-2023 a las 08:55:08
+-- Tiempo de generación: 29-11-2023 a las 08:10:30
 -- Versión del servidor: 5.7.41-log
 -- Versión de PHP: 7.4.33
 
@@ -42,7 +42,10 @@ CREATE TABLE `carrito` (
 
 INSERT INTO `carrito` (`idcarrito`, `idproducto`, `idusuario`, `cantidad`, `fechaad`, `importe`) VALUES
 (4, 1, 84, 1, '2021-11-23 07:23:01', 100),
-(5, 2, 84, 1, '2021-11-23 07:23:42', 250);
+(5, 2, 84, 1, '2021-11-23 07:23:42', 250),
+(6, 2, 85, 1, '2025-11-23 05:00:25', 250),
+(7, 3, 85, 2, '2025-11-23 05:00:27', 500),
+(8, 1, 85, 1, '2025-11-23 05:02:03', 100);
 
 -- --------------------------------------------------------
 
@@ -65,16 +68,16 @@ CREATE TABLE `producto_1` (
 --
 
 INSERT INTO `producto_1` (`idproducto`, `precio`, `categoria`, `descripcion`, `nombreimg`, `fechareg`, `nombrep`) VALUES
-(1, 100, 'Vape', 'El Vaporesso Xros 3 Mini Pod Kit, el hermano pequeño del nuevo Xros 3, es otro nuevo sistema pod de la familia XROS, la elección perfecta para una experiencia RDL. ', 'black.jpg', '03/10/2023 00:00', 'Vaporesso XROS 3 MINI Pod Kit'),
-(2, 250, 'Vape', 'Vaporesso nos trae lo último en dispositivos tipo Pod, el Xros Mini, un dispositivo compacto y que sorprende por su gran diseño y calidad.', 'vaporesso-xros-mini-pod-kit-4.jpg', '04/10/2023 00:00', 'Vaporesso XROS Mini Pod Kit'),
-(3, 500, 'Vape', 'La conocida marca Joyetech nos trae el nuevo eGo Pod Kit, un dispositivo tipo pod con un diseño que recuerda a su clásico dispositivo eGo AIO pero acorde con los tiempos y tendencias más actuales.', 'joyetech-ego-pod-kit-1000mah-3.jpg', '04/10/2023 09:00', 'Joyetech eGo Pod Kit 1000mAh'),
-(4, 500, 'Vape', 'Si lleva vapeando un tiempo y conoce los productos de Joyetech, podría pensar que el nuevo eGo AIO se trata de una nueva versión del ya conocido eGo One\r\n', 'joyetech-aio-1_8.jpg', '04/10/2023 08:00', 'Joyetech eGo AIO Kit'),
-(5, 480, 'Vape', 'Ya puedes hacerte con lo último de Vaporesso. El Swag PX80 Kit es un dispositivo tipo Pod Mod que alcanza los 80W de potencia, y todo ello en un cuerpo realmente compacto y ergonómico.', 'vaporesso-swag-px80-5_1.jpg', '04/10/2023 07:00', 'Vaporesso Swag PX80 Kit'),
-(6, 769, 'Vape', '¡Liquideo nos presenta Wpuff con sabor a Chocolate con Avellanas, una novedosa y ecológica propuesta en formato POD desechable y reciclable, Wpuff con una inmensa variedad de sabores!\r\n', 'chocolate_avellanas.jpg', '04/10/2023 10:00', 'Vaporesso Swag PX80 Kit'),
-(7, 800, 'Vape', 'El Caliburn G2 Pod Kit mantiene la forma del nuevo A2, compacto y eficiente, y se posiciona entre los mejores Pod aptos para vapeadores principiantes.', 'caliburn_g2_arcoirisjpg.jpg', '05/10/2023 11:00', 'UWELL Caliburn G2 POD Kit'),
-(8, 200, 'Vape', 'A diferencia de la serie DRAG anterior, el Drag Nano 2 de VOOPOO tiene un cuerpo pequeño pero potente. No sólo perpetúa el rendimiento profesional de la serie DRAG.', 'drag-nano-2.jpg', '05/10/2023 11:00', 'VOOPOO Drag Nano 2 800mAh'),
-(9, 370, 'Vape', '¡Liquideo nos presenta Wpuff con sabor a Mashmalow (nubes), una novedosa y ecológica propuesta en formato POD desechable y reciclable.', 'mashmallow.jpg', '05/10/2023 11:00', 'Wpuff Mashmalow Desechable 600 puffs'),
-(10, 450, 'Vape', 'El Aspire PockeX Pocket AIO es un moderno dispositivo todo en uno con una capacidad de batería de 1500mAh y una capacidad de e-líquido de 2ml. ', 'aspire-pockex-aio-kit-1500mah-6_7.jpg', '05/10/2023 11:00', 'Aspire PockeX Pocket AIO 1500mAh');
+(1, 5499, 'Lap top', 'La Lenovo Ideapad (82V6001DUS) está diseñada para la productividad y el entretenimiento. Con una pantalla 14 pulgadas y una resolución 1366x768 píxeles ofrece imágenes claras y colores brillantes.', 'lap.png', '03/10/2023 00:00', 'Laptop Lenovo 82V6001DUS 14 Pulgadas Full HD'),
+(2, 3859, 'Monitor', 'Diseñado para el enfoque en Gaming\r\nDiseño Atractivo y Elegante, Mejore su experiencia de juego con el nuevo diseño Hexagon y un bisel delgado en 3 lados. La base se puede ajustar para cambiar la inclinación del monitor para ayudarlo a jugar más cómodo..', 'monitor1.jpg', '04/10/2023 00:00', 'LG 27GQ50F-B Ultragear Gaming Monitor 27 VA'),
+(3, 1100, 'Teclado', 'Teclado Inlámbrico+Alámbrico, Bluetooth/USB 2.4G/Cable Removible: En la parte inferior del teclado se encuentra el botón para cambiar los modos de conexión. Un click rápido y podrá conectarse al dispositivo entre Bluetooth/2.4G Usb/Cable.', 'teclado1.jpg', '04/10/2023 09:00', ' Terport Teclado Mecanico en 3 Modos con Cable 24G'),
+(4, 13499, 'Lap top', 'Adaptada a tu forma de vida, con potentes procesadores AMD Ryzen para un rendimiento amplificado. Windows 11 Versión para evaluación de componentes. No aplica garantía por software', 'lap2.jpg', '04/10/2023 08:00', 'Laptop Lenovo Ideapad 5 15alc05 15.6 pulgadas Full'),
+(5, 1099, 'Audifonos', 'Diseñado para ofrecer comodidad: las almohadillas de espuma viscoelástica excepcionalmente cómodas y la diadema acolchada de piel sintética ayudan a mantener la concentración en los juegos Calidad de audio suprema: los altavoces grandes de 53 milímetros proporcionan un audio de alta calidad. ', 'audi1.jpg', '04/10/2023 07:00', 'HyperX KHX-HSCP-RD Cloud II  Audífonos para Gaming'),
+(6, 14949, 'Lap top', 'Un nuevo poder toma vuelo. Nuestra notebook más ligera y delgada vuelve completamente renovada por dentro. Gracias al chip M1 de Apple, el CPU es hasta 3.5 veces más rápido y el GPU hasta 5 veces más veloz.', 'lap3.png', '04/10/2023 10:00', 'Apple MacBook Air 13 pulgadas HD M1 apple 8 GB '),
+(7, 1050, 'Teclado', 'Mini teclado portátil 65% inalámbrico para juegos: Surmen GT68 es un teclado mecánico de 68 teclas que tiene un bonito tamaño pequeño, teclas de flecha separadas y todas tus teclas F que necesitas, se puede utilizar para jugar o trabajar mientras ahorra espacio.', 'teclado2.jpg', '05/10/2023 11:00', 'surmen GT68 Teclado mecánico 60%  para juegos '),
+(8, 6600, 'Lap top', 'Laptop iView 360 2 en 1 Touch Intel Atom 8 GB RAM 128 GB SSD SIM Full HD Intel Atom 8 GB RAM 128 GB SSD', 'lap4.jpg', '05/10/2023 11:00', ' Laptop 2 en 1 iView Touch 14 Pulgadas '),
+(9, 9299, 'Lap top', 'La laptop ASUS VIVOBOOK F15 es un equipo portátil que cuenta con una arquitectura del sistema operativo de 64 bits y ofrece una experiencia visual en alta definición gracias a su pantalla Full HD de 39,6 cm (15.6 pulgadas). Viene preinstalado con el sistema ', 'lap5.jpg', '05/10/2023 11:00', ' Laptop ASUS Vivobook F15 15.6 Pulgadas Full'),
+(10, 1450, 'Audifono', 'Presentamos el Razer Nari Ultimate, con Razer HyperSense, un auricular inalámbrico para juegos de PC equipado con tecnología háptica inteligente desarrollada por Lofelt que convierte las señales de sonido en retroalimentación táctil dinámica en tiempo real.', 'audi2.jpg', '05/10/2023 11:00', 'Razer Nari Ultimate Wireless 7.1 Surround Sound ');
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,8 @@ INSERT INTO `usuario` (`id`, `nameu`, `emailu`, `passwordu`, `perfilu`) VALUES
 (81, 'santiago', 'santiagonano13@gmail.com', 'pbkdf2:sha256:600000$lX2rLzLDrFi1XYCQ$8250b0ccb9bdada21571a32a01f8073c4074bdb6caaf574fb10b1240a493736d', 'C'),
 (82, 'santiago', 'santiagonano13@gmail.com', 'pbkdf2:sha256:600000$LJQmUfRk0QfS0SCa$514892479a17104f3639567bb7331a191438892dbc7b220fb0bcec426c5b02e1', 'C'),
 (83, 'kiki', 'kiki@gmail.com', 'pbkdf2:sha256:600000$evr4bPXLgMl1vHoj$482f8a1eecbc54c59fc517cd03e64518ef433f8d4b9f5fcf6f0667c21593f21e', 'C'),
-(84, 'hola', 'hola@gmail.com', 'pbkdf2:sha256:600000$gmlUqoIepR3QWd6O$8126f27adf0feddcb00bd158c8afe6f8a679560b7288ef0a83141acfa5921233', 'C');
+(84, 'hola', 'hola@gmail.com', 'pbkdf2:sha256:600000$gmlUqoIepR3QWd6O$8126f27adf0feddcb00bd158c8afe6f8a679560b7288ef0a83141acfa5921233', 'C'),
+(85, '123@gmail.com', '123@gmail.com', 'pbkdf2:sha256:600000$lnwMxji73xsC5Hsx$c68a8040904172e521e9c11f7bccd6290e23d95c3798c1fe5855cb5a21282aae', 'C');
 
 -- --------------------------------------------------------
 
@@ -173,12 +177,11 @@ INSERT INTO `usuario` (`id`, `nameu`, `emailu`, `passwordu`, `perfilu`) VALUES
 
 CREATE TABLE `venta` (
   `idventa` int(11) NOT NULL,
-  `direccion` int(11) NOT NULL,
-  `referencia` int(11) NOT NULL,
-  `formapago` int(11) NOT NULL,
+  `direccion` varchar(50) NOT NULL,
+  `formapago` varchar(50) NOT NULL,
   `totaldecompra` int(11) NOT NULL,
-  `infodecompra` int(11) NOT NULL,
-  `idusuario` int(11) NOT NULL
+  `idusuario` int(11) NOT NULL,
+  `fechapago` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -220,7 +223,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `idcarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idcarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `producto_1`
@@ -232,13 +235,13 @@ ALTER TABLE `producto_1`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
