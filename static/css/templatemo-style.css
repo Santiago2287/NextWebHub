@@ -1,0 +1,97 @@
+/*
+
+Known Template 
+
+https://templatemo.com/tm-516-known
+
+*/
+  /*---------------------------------------
+      HOME  & SLIDER            
+  -----------------------------------------*/
+
+  #home {
+    padding: 0;
+  }
+
+  #home h1 {
+    color: #ffffff;
+  }
+
+  #home h3 {
+    color: #f9f9f9;
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    padding: 5px 0 40px 0;
+  }
+
+  @media (min-width: 768px) {
+    .home-slider .col-md-6 {
+      padding-left: 0;
+    }
+  }
+
+  .home-slider .caption {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+    background-color: rgba(20,20,20,0.2);
+    height: 100%;
+    color: #fff;
+    cursor: e-resize;
+  }
+
+  .home-slider .item {
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-size: cover;
+    height: 650px;
+  }
+  
+  .caption h3 a { color: #FFF; }
+  .caption h3 a:hover { color: #FF3; }
+
+  .home-slider .item-first {
+    background-image: url(../img/home2.jpg);
+	background-position: center;
+  }
+
+  .home-slider .item-second {
+    background-image: url(../img/home5.jpg);
+  }
+
+  .home-slider .item-third {
+    background-image: url(../img/homeu1.jpg);
+  }
+
+
+
+  /*---------------------------------------
+      FEATURE              
+  -----------------------------------------*/
+
+  .featureusuario-thumb {
+    border: 1px solid #f0f0f0;
+    padding: 5em 3em;
+  }
+
+  .featureusuario-thumb span {
+    background: #3f51b5;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .featureusuario-thumb h3 {
+    margin: 10px 0;
+  }
+
+

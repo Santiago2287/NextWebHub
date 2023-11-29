@@ -60,6 +60,11 @@ def catalogoHome():
     productos = obtener_productos()
     return render_template('catalogoHome2.html', productos=productos)
 
+@app.route('/categoriasUsuario')
+def categoriasUsuario():
+    productos = obtener_productos()
+    return render_template('categoriasUsuario.html', productos=productos)
+
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if request.method =='POST':
